@@ -26,6 +26,20 @@ class Slider {
     if (n < 1) {
       this.slideIndex = this.slides.length;
     }
+    try {
+      this.block.style.opacity = '0';
+      if (n === 3) {
+        let blockTimeout;
+        this.block.classList.add('animated');
+        blockTimeout = setTimeout(() => {
+          this.block.classList.add('slideInUp');
+          this.block.style.opacity = '1';
+        }, 3000);
+      } else {
+        this.block.classList.remove('slideInUp');
+        clearTimeout(blockTimeout);
+      }
+    } catch (e) {}
     this.slides.forEach(slide => {
       slide.style.display = 'none';
     });
@@ -35,6 +49,9 @@ class Slider {
     this.showSlides(this.slideIndex += n);
   }
   render() {
+    try {
+      this.block = document.querySelector('.hanson');
+    } catch (e) {}
     this.showSlides(this.slideIndex);
     this.btns.forEach(btn => {
       btn.addEventListener('click', () => {
