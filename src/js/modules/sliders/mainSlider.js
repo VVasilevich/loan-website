@@ -1,9 +1,8 @@
-export default class Slider {
+import SliderPrototype from "./sliderPrototype";
+
+export default class MainSlider extends SliderPrototype {
   constructor(page, btns) {
-    this.page = document.querySelector(page);
-    this.slides = [...this.page.children];
-    this.btns = document.querySelectorAll(btns);
-    this.slideIndex = 1;
+    super(page, btns);
   }
 
   showSlides(n) {
@@ -18,9 +17,9 @@ export default class Slider {
     try {
       this.block.style.opacity = '0';
 
-      if (n === 3) {
-        let blockTimeout;
+      let blockTimeout;
 
+      if (n === 3) {
         this.block.classList.add('animated');
 
         blockTimeout = setTimeout(() => {
