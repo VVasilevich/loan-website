@@ -1,8 +1,8 @@
 import SliderPrototype from "./sliderPrototype";
 
 export default class MainSlider extends SliderPrototype {
-  constructor(page, btns) {
-    super(page, btns);
+  constructor(btns) {
+    super(btns);
   }
 
   showSlides(n) {
