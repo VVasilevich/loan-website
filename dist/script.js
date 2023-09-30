@@ -39,7 +39,7 @@ class MainSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
         clearTimeout(blockTimeout);
       }
     } catch (e) {}
-    this.slides.forEach(slide => {
+    [...this.slides].forEach(slide => {
       slide.style.display = 'none';
     });
     this.slides[this.slideIndex - 1].style.display = 'block';
@@ -84,7 +84,7 @@ class MiniSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
     super(container, prev, next, activeClass, animate, autoplay);
   }
   decorizeSlides() {
-    this.slides.forEach(slide => {
+    [...this.slides].forEach(slide => {
       slide.classList.remove(this.activeClass);
       if (this.animate) {
         slide.querySelector('.card__title').style.opacity = '0.4';
@@ -97,17 +97,34 @@ class MiniSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
       this.slides[0].querySelector('.card__controls-arrow').style.opacity = '1';
     }
   }
+  prevSLide() {
+    for (let i = this.slides.length - 1; i > 0; i--) {
+      if (this.slides[i].tagName !== 'BUTTON') {
+        let active = this.slides[i];
+        this.container.insertBefore(active, this.slides[0]);
+        this.decorizeSlides();
+        break;
+      }
+    }
+  }
+  nextSlide() {
+    for (let i = 1; i < this.slides.length; i++) {
+      if (this.slides[i].tagName !== 'BUTTON') {
+        this.container.appendChild(this.slides[0]);
+        this.decorizeSlides();
+        break;
+      } else {
+        this.container.appendChild(this.slides[i]);
+        i--;
+      }
+    }
+  }
   bindTriggers() {
     this.prev.addEventListener('click', () => {
-      let active = this.slides[this.slides.length - 1];
-      this.container.insertBefore(active, this.slides[0]);
-      this.decorizeSlides();
-      console.log(this.container, this.slides, this.prev);
+      this.prevSLide();
     });
     this.next.addEventListener('click', () => {
-      this.container.appendChild(this.slides[0]);
-      this.decorizeSlides();
-      console.log(this.container, this.slides, this.next);
+      this.nextSlide();
     });
   }
   init() {
@@ -146,7 +163,7 @@ class SliderPrototype {
       autoplay
     } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     this.container = document.querySelector(container);
-    this.slides = [...this.container.children];
+    this.slides = this.container.children;
     this.btns = document.querySelectorAll(btns);
     this.prev = document.querySelector(prev);
     this.next = document.querySelector(next);

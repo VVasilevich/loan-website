@@ -6,7 +6,7 @@ export default class MiniSlider extends SliderPrototype {
   }
 
   decorizeSlides() {
-    this.slides.forEach(slide => {
+    [...this.slides].forEach(slide => {
       slide.classList.remove(this.activeClass);
 
       if (this.animate) {
@@ -23,18 +23,37 @@ export default class MiniSlider extends SliderPrototype {
     }
   }
 
+  prevSLide() {
+    for (let i = this.slides.length - 1; i > 0; i--) {
+      if (this.slides[i].tagName !== 'BUTTON') {
+        let active = this.slides[i];
+        this.container.insertBefore(active, this.slides[0]);
+        this.decorizeSlides();
+        break;
+      }
+    }
+  }
+
+  nextSlide() {
+    for (let i = 1; i < this.slides.length; i++) {
+      if (this.slides[i].tagName !== 'BUTTON') {
+        this.container.appendChild(this.slides[0]);
+        this.decorizeSlides();
+        break;
+      } else {
+        this.container.appendChild(this.slides[i]);
+        i--;
+      }
+    }
+  }
+
   bindTriggers() {
     this.prev.addEventListener('click', () => {
-      let active = this.slides[this.slides.length - 1];
-      this.container.insertBefore(active, this.slides[0]);
-      this.decorizeSlides();
-      console.log(this.container, this.slides, this.prev);
+      this.prevSLide();
     });
 
     this.next.addEventListener('click', () => {
-      this.container.appendChild(this.slides[0]);
-      this.decorizeSlides();
-      console.log(this.container, this.slides, this.next);
+      this.nextSlide();
     });
   }  
 

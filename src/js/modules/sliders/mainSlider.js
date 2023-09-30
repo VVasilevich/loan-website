@@ -32,7 +32,7 @@ export default class MainSlider extends SliderPrototype {
       }
     } catch(e) {}
 
-    this.slides.forEach(slide => {
+    [...this.slides].forEach(slide => {
       slide.style.display = 'none';
     });
 
