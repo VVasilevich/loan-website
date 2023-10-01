@@ -50,7 +50,7 @@ export default class MiniSlider extends SliderPrototype {
   startAutoplay() {
     this.autoplay = setInterval(() => {
       this.nextSlide()
-    }, 500);
+    }, 5000);
   }
 
   addMouseEvents(element) {

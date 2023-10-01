@@ -11,8 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
     prev: '.showup__prev',
     next: '.showup__next',
     activeClass: 'card-active',
-    animate: true,
-    autoplay: true
+    animate: true
   });
   showUpSlider.init();
 

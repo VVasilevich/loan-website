@@ -122,7 +122,7 @@ class MiniSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
   startAutoplay() {
     this.autoplay = setInterval(() => {
       this.nextSlide();
-    }, 500);
+    }, 5000);
   }
   addMouseEvents(element) {
     element.forEach(element => {
@@ -331,8 +331,7 @@ window.addEventListener('DOMContentLoaded', () => {
     prev: '.showup__prev',
     next: '.showup__next',
     activeClass: 'card-active',
-    animate: true,
-    autoplay: true
+    animate: true
   });
   showUpSlider.init();
   const modulesSlider = new _modules_sliders_miniSlider__WEBPACK_IMPORTED_MODULE_1__["default"]({
