@@ -119,6 +119,21 @@ class MiniSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
       }
     }
   }
+  startAutoplay() {
+    this.autoplay = setInterval(() => {
+      this.nextSlide();
+    }, 500);
+  }
+  addMouseEvents(element) {
+    element.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        clearInterval(this.autoplay);
+      });
+      element.addEventListener('mouseleave', () => {
+        this.startAutoplay();
+      });
+    });
+  }
   bindTriggers() {
     this.prev.addEventListener('click', () => {
       this.prevSLide();
@@ -136,6 +151,10 @@ class MiniSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
     `;
     this.bindTriggers();
     this.decorizeSlides();
+    if (this.autoplay) {
+      this.startAutoplay();
+      this.addMouseEvents([this.slides[0].parentNode, this.prev, this.next]);
+    }
   }
 }
 
@@ -312,7 +331,8 @@ window.addEventListener('DOMContentLoaded', () => {
     prev: '.showup__prev',
     next: '.showup__next',
     activeClass: 'card-active',
-    animate: true
+    animate: true,
+    autoplay: true
   });
   showUpSlider.init();
   const modulesSlider = new _modules_sliders_miniSlider__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -320,7 +340,8 @@ window.addEventListener('DOMContentLoaded', () => {
     prev: '.modules__info-btns .slick-prev',
     next: '.modules__info-btns .slick-next',
     activeClass: 'card-active',
-    animate: true
+    animate: true,
+    autoplay: true
   });
   modulesSlider.init();
   const feedSlider = new _modules_sliders_miniSlider__WEBPACK_IMPORTED_MODULE_1__["default"]({

@@ -47,6 +47,24 @@ export default class MiniSlider extends SliderPrototype {
     }
   }
 
+  startAutoplay() {
+    this.autoplay = setInterval(() => {
+      this.nextSlide()
+    }, 500);
+  }
+
+  addMouseEvents(element) {
+    element.forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        clearInterval(this.autoplay);
+      });
+
+      element.addEventListener('mouseleave', () => {
+        this.startAutoplay()
+      });
+    });
+  }
+
   bindTriggers() {
     this.prev.addEventListener('click', () => {
       this.prevSLide();
@@ -67,5 +85,11 @@ export default class MiniSlider extends SliderPrototype {
 
     this.bindTriggers();
     this.decorizeSlides();
+
+    if (this.autoplay) {
+      this.startAutoplay();
+
+      this.addMouseEvents([this.slides[0].parentNode, this.prev, this.next]);
+    }
   }
 }
