@@ -15,7 +15,9 @@ export default class MiniSlider extends SliderPrototype {
       }
     });
 
-    this.slides[0].classList.add(this.activeClass);
+    if (this.slides[0].closest('button')) {
+      this.slides[0].classList.add(this.activeClass);
+    }
 
     if (this.animate) {
       this.slides[0].querySelector('.card__title').style.opacity = '1';
