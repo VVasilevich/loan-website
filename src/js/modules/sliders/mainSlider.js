@@ -45,21 +45,23 @@ export default class MainSlider extends SliderPrototype {
 
   render() {
     try {
-      this.block = document.querySelector('.hanson');
-    } catch(e) {}
-
-    this.showSlides(this.slideIndex);
-
-    this.btns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.changeSlides(1);
+      try {
+        this.block = document.querySelector('.hanson');
+      } catch(e) {}
+  
+      this.showSlides(this.slideIndex);
+  
+      this.btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.changeSlides(1);
+        });
+  
+        btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.slideIndex = 1;
+          this.showSlides(this.slideIndex);
+        });
       });
-
-      btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.slideIndex = 1;
-        this.showSlides(this.slideIndex);
-      });
-    });
+    } catch(e){}
   }
 }

@@ -14,12 +14,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class Difference {
   constructor(oldOfficer, newOfficer, items) {
-    this.oldOfficer = document.querySelector(oldOfficer);
-    this.newOfficer = document.querySelector(newOfficer);
-    this.oldItems = this.oldOfficer.querySelectorAll(items);
-    this.newItems = this.newOfficer.querySelectorAll(items);
-    this.oldCounter = 0;
-    this.newCounter = 0;
+    try {
+      this.oldOfficer = document.querySelector(oldOfficer);
+      this.newOfficer = document.querySelector(newOfficer);
+      this.oldItems = this.oldOfficer.querySelectorAll(items);
+      this.newItems = this.newOfficer.querySelectorAll(items);
+      this.oldCounter = 0;
+      this.newCounter = 0;
+    } catch (e) {}
   }
   bindTriggers(container, items, counter) {
     container.querySelector('.plus').addEventListener('click', () => {
@@ -40,10 +42,12 @@ class Difference {
     });
   }
   init() {
-    this.hideItems(this.oldItems);
-    this.hideItems(this.newItems);
-    this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
-    this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+    try {
+      this.hideItems(this.oldItems);
+      this.hideItems(this.newItems);
+      this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
+      this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+    } catch (e) {}
   }
 }
 
@@ -225,19 +229,21 @@ class MainSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
   }
   render() {
     try {
-      this.block = document.querySelector('.hanson');
+      try {
+        this.block = document.querySelector('.hanson');
+      } catch (e) {}
+      this.showSlides(this.slideIndex);
+      this.btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.changeSlides(1);
+        });
+        btn.parentNode.previousElementSibling.addEventListener('click', e => {
+          e.preventDefault();
+          this.slideIndex = 1;
+          this.showSlides(this.slideIndex);
+        });
+      });
     } catch (e) {}
-    this.showSlides(this.slideIndex);
-    this.btns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.changeSlides(1);
-      });
-      btn.parentNode.previousElementSibling.addEventListener('click', e => {
-        e.preventDefault();
-        this.slideIndex = 1;
-        this.showSlides(this.slideIndex);
-      });
-    });
   }
 }
 
@@ -321,18 +327,20 @@ class MiniSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
     });
   }
   init() {
-    this.container.style.cssText = `
+    try {
+      this.container.style.cssText = `
       display: flex;
       flex-wrap: wrap;
       overflow: hidden;
       alight-items: flex-start;
-    `;
-    this.bindTriggers();
-    this.decorizeSlides();
-    if (this.autoplay) {
-      this.startAutoplay();
-      this.addMouseEvents([this.slides[0].parentNode, this.prev, this.next]);
-    }
+      `;
+      this.bindTriggers();
+      this.decorizeSlides();
+      if (this.autoplay) {
+        this.startAutoplay();
+        this.addMouseEvents([this.slides[0].parentNode, this.prev, this.next]);
+      }
+    } catch (e) {}
   }
 }
 
@@ -360,7 +368,10 @@ class SliderPrototype {
       autoplay
     } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     this.container = document.querySelector(container);
-    this.slides = this.container.children;
+    try {
+      this.slides = this.container.children;
+    } catch (e) {}
+    ;
     this.btns = document.querySelectorAll(btns);
     this.prev = document.querySelector(prev);
     this.next = document.querySelector(next);
