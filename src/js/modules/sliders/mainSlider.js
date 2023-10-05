@@ -43,25 +43,44 @@ export default class MainSlider extends SliderPrototype {
     this.showSlides(this.slideIndex += n);
   }
 
+  bindTriggers() {
+    this.btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.changeSlides(1);
+      });
+
+      btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.slideIndex = 1;
+        this.showSlides(this.slideIndex);
+      });
+    });
+
+    this.prevPageModule.forEach(elem => {
+      elem.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.changeSlides(-1);
+      });
+    });
+
+    this.nextPageModule.forEach(elem => {
+      elem.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.changeSlides(1);
+      });
+    });
+  }
+
   render() {
-    try {
+    if (this.container) {
       try {
         this.block = document.querySelector('.hanson');
       } catch(e) {}
   
       this.showSlides(this.slideIndex);
-  
-      this.btns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          this.changeSlides(1);
-        });
-  
-        btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
-          e.preventDefault();
-          this.slideIndex = 1;
-          this.showSlides(this.slideIndex);
-        });
-      });
-    } catch(e){}
+      this.bindTriggers();
+    }
   }
 }

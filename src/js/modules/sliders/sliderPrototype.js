@@ -4,6 +4,8 @@ export default class SliderPrototype {
     btns = null,
     prev = null,
     next = null,
+    prevPageModule = null,
+    nextPageModule = null,
     activeClass = '',
     animate,
     autoplay} = {}) {
@@ -12,6 +14,8 @@ export default class SliderPrototype {
     this.btns = document.querySelectorAll(btns);
     this.prev = document.querySelector(prev);
     this.next = document.querySelector(next);
+    this.prevPageModule = document.querySelectorAll(prevPageModule);
+    this.nextPageModule = document.querySelectorAll(nextPageModule)
     this.activeClass = activeClass;
     this.animate = animate;
     this.autoplay = autoplay;

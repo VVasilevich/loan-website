@@ -227,23 +227,40 @@ class MainSlider extends _sliderPrototype__WEBPACK_IMPORTED_MODULE_0__["default"
   changeSlides(n) {
     this.showSlides(this.slideIndex += n);
   }
+  bindTriggers() {
+    this.btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.changeSlides(1);
+      });
+      btn.parentNode.previousElementSibling.addEventListener('click', e => {
+        e.preventDefault();
+        this.slideIndex = 1;
+        this.showSlides(this.slideIndex);
+      });
+    });
+    this.prevPageModule.forEach(elem => {
+      elem.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.changeSlides(-1);
+      });
+    });
+    this.nextPageModule.forEach(elem => {
+      elem.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.changeSlides(1);
+      });
+    });
+  }
   render() {
-    try {
+    if (this.container) {
       try {
         this.block = document.querySelector('.hanson');
       } catch (e) {}
       this.showSlides(this.slideIndex);
-      this.btns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          this.changeSlides(1);
-        });
-        btn.parentNode.previousElementSibling.addEventListener('click', e => {
-          e.preventDefault();
-          this.slideIndex = 1;
-          this.showSlides(this.slideIndex);
-        });
-      });
-    } catch (e) {}
+      this.bindTriggers();
+    }
   }
 }
 
@@ -363,6 +380,8 @@ class SliderPrototype {
       btns = null,
       prev = null,
       next = null,
+      prevPageModule = null,
+      nextPageModule = null,
       activeClass = '',
       animate,
       autoplay
@@ -375,6 +394,8 @@ class SliderPrototype {
     this.btns = document.querySelectorAll(btns);
     this.prev = document.querySelector(prev);
     this.next = document.querySelector(next);
+    this.prevPageModule = document.querySelectorAll(prevPageModule);
+    this.nextPageModule = document.querySelectorAll(nextPageModule);
     this.activeClass = activeClass;
     this.animate = animate;
     this.autoplay = autoplay;
@@ -519,6 +540,13 @@ window.addEventListener('DOMContentLoaded', () => {
     btns: '.next'
   });
   slider.render();
+  const modulePageSlider = new _modules_sliders_mainSlider__WEBPACK_IMPORTED_MODULE_0__["default"]({
+    container: '.moduleapp',
+    btns: '.next',
+    prevPageModule: '.prevmodule',
+    nextPageModule: '.nextmodule'
+  });
+  modulePageSlider.render();
   const showUpSlider = new _modules_sliders_miniSlider__WEBPACK_IMPORTED_MODULE_1__["default"]({
     container: '.showup__content-slider',
     prev: '.showup__prev',
