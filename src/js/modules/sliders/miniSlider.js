@@ -15,7 +15,7 @@ export default class MiniSlider extends SliderPrototype {
       }
     });
 
-    if (this.slides[0].closest('button')) {
+    if (!this.slides[0].closest('button')) {
       this.slides[0].classList.add(this.activeClass);
     }
 
@@ -42,9 +42,6 @@ export default class MiniSlider extends SliderPrototype {
         this.container.appendChild(this.slides[0]);
         this.decorizeSlides();
         break;
-      } else {
-        this.container.appendChild(this.slides[i]);
-        i--;
       }
     }
   }
@@ -56,12 +53,12 @@ export default class MiniSlider extends SliderPrototype {
   }
 
   addMouseEvents(element) {
-    element.forEach(element => {
-      element.addEventListener('mouseenter', () => {
+    element.forEach(item => {
+      item.addEventListener('mouseenter', () => {
         clearInterval(this.autoplay);
       });
 
-      element.addEventListener('mouseleave', () => {
+      item.addEventListener('mouseleave', () => {
         this.startAutoplay()
       });
     });
@@ -83,7 +80,7 @@ export default class MiniSlider extends SliderPrototype {
       display: flex;
       flex-wrap: wrap;
       overflow: hidden;
-      alight-items: flex-start;
+      align-items: flex-start;
       `;
 
       this.bindTriggers();
