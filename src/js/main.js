@@ -4,6 +4,7 @@ import VideoPlayer from "./modules/videoPlayer";
 import Difference from "./modules/difference";
 import Forms from "./modules/forms";
 import ShowInfo from "./modules/showInfo";
+import Download from "./modules/download";
 
 window.addEventListener('DOMContentLoaded', () => {
   const slider = new MainSlider({container: '.page', btns: '.next'});
@@ -49,4 +50,5 @@ window.addEventListener('DOMContentLoaded', () => {
   new Difference('.officerold', '.officernew', '.officer__card-item').init();
   new Forms('.form').init();
   new ShowInfo('.plus').init();
+  new Download('.download').init();
 });
